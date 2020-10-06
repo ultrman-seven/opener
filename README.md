@@ -30,4 +30,4 @@ bit matButton(void)
 
 while the key is pressed, the function will return true and give the value which key represent to 'value'.
 
-in 'main', firetly initialize the digit tube and the motor, especially the motor!!! especially the motor!!! especially the motor!!!
+in 'main', firstly initialize the digit tube and the motor, especially the motor!!! especially the motor!!! especially the motor!!!

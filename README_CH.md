@@ -6,8 +6,9 @@ C51
 输入密码错误则数码管显示error。
 
 # steppedMotor.c 和 motor.h
-控制五线四相步进电机的代码
-！！！！步进电机初始化INICIAL——MOTO（存放于motor.h）！！一定要写在main里，防止电机烧坏！！！！！
+控制五线四相步进电机的代码。
+
+！！！！步进电机初始化INICIAL_MOTO（存放于motor.h）！！一定要写在main里，防止电机烧坏！！！！！
 
 一个函数控制电机运行，其中参数direction控制旋转方向，forward正转，opposite反转。
 具体见注释

@@ -19,16 +19,16 @@ void main()
 		if (matButton())
 			switch (value)
 			{
-			case 10://��λ
+			case 10://退位
 				input--;
 				*input = -1;
 				break;
-			case 11://���
+			case 11://全部清空
 				for (input = display; *input != -2; input++)
 					*input = -1;
 				input = display;
 				break;
-			case 12://ȷ��
+			case 12://确认
 				if (checkPassword(display))
 					rightPassword();
 				else

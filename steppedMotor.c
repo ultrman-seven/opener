@@ -1,12 +1,11 @@
 #include"motor.h"
-void stepperMotor(un16 circle,bit direction)
+void stepperMotor(un16 circle,bit direction)//circle 转的圈数，direction 转动方向
 {
-	void delay(un16);
 	circle *= 256;
 	if(direction)
 		while (circle--)
 		{
-			//AB-B-BC-C-CD-D-DA-A-
+			//通电顺序：AB-B-BC-C-CD-D-DA-A-
 
 			motoA = motoB = 1;
 			delay(SPEED);
@@ -77,5 +76,5 @@ void stepperMotor(un16 circle,bit direction)
 			delay(SPEED);
 			//A-
 		}
-	motoA = motoB = motoC = motoD = 0;
+	motoA = motoB = motoC = motoD = 0;//防止烧坏
 }

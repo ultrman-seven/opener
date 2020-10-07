@@ -19,16 +19,16 @@ void main()
 		if (matButton())
 			switch (value)
 			{
-			case 10://ÍËÎ»
+			case 10://ï¿½ï¿½Î»
 				input--;
 				*input = -1;
 				break;
-			case 11://Çå¿Õ
+			case 11://ï¿½ï¿½ï¿½
 				for (input = display; *input != -2; input++)
 					*input = -1;
 				input = display;
 				break;
-			case 12://È·ÈÏ
+			case 12://È·ï¿½ï¿½
 				if (checkPassword(display))
 					rightPassword();
 				else

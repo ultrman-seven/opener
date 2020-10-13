@@ -62,6 +62,7 @@ void rightPassword(void)
 	un8 time = 200;
 	LED_RED = 1;
 	LED_GREEN = 0;
+	rightBeep();
 	stepperMotor(CIRCLE, FORWARD);
 	while (time--)
 		delay(1000);
@@ -72,6 +73,7 @@ void rightPassword(void)
 void wrongPassword(void)
 {
 	un16 time;
+	wrongBeep();
 	for (time = ERR_DIS; time--;)
 		error();
 	delay(ERR_TWINKLE);
@@ -95,7 +97,12 @@ bit matButton(void)
 			KEY = 0xf0;
 			value += (4 * findZero(KEY / 0x10));
 			while (KEY != 0xf0)
-				delay(1000);
+			{
+				bep = 0;
+				delay(PRESS);
+				bep = 1;
+				delay(PRESS);
+			}
 			return 1;
 		}
 	}

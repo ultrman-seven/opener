@@ -1,8 +1,12 @@
 #include"SegDis.h"
 #include"motor.h"
-
+#include"beep.h"
+#define KEY P1
+sbit LED_GREEN = P2 ^ 0;
+sbit LED_RED = P2 ^ 1;
 un8 value = 0;
-char password[9] = { 7,3,5,5,6,0,8,-1,-2 };
+//char password[9] = { 7,3,5,5,6,0,8,-1,-2 };
+char password[9] = { 1,1,2,3, 5,8,1,1, -2 };
 
 void main()
 {
@@ -16,33 +20,25 @@ void main()
 	INICIAL_MOTO
 	while (1)
 	{
-		if (matButton())
+		if (matButton())// ‰»ÎŒ™ ÆÀƒΩ¯÷∆◊Ó∂‡8Œª
 			switch (value)
 			{
-			case 10://ÈÄÄ‰Ωç
+			case 14://ÕÀŒª
 				input--;
 				*input = -1;
 				break;
-			case 11://ÂÖ®ÈÉ®Ê∏ÖÁ©∫
+			case 15://«Âø’
 				for (input = display; *input != -2; input++)
 					*input = -1;
 				input = display;
 				break;
-			case 12://Á°ÆËÆ§
+			case 16://»∑»œ
 				if (checkPassword(display))
 					rightPassword();
 				else
 					wrongPassword();
 				break;
-			case 13:
-				break;
-			case 14:
-				break;
-			case 15:
-				break;
-			case 16:
-				break;
-			default:
+			default://0-13Œ™ ‰»Î ˝◊÷
 				if (*input != -2)
 				{
 					*input = value;
@@ -64,10 +60,14 @@ bit checkPassword(char* input)
 void rightPassword(void)
 {
 	un8 time = 200;
+	LED_RED = 1;
+	LED_GREEN = 0;
 	stepperMotor(CIRCLE, FORWARD);
 	while (time--)
-		delay(5000);
+		delay(1000);
 	stepperMotor(CIRCLE, OPPOSITE);
+	LED_RED = 0;
+	LED_GREEN = 1;
 }
 void wrongPassword(void)
 {
@@ -85,16 +85,16 @@ bit matButton(void)
 	void delay(un16);
 	char findZero(un8);
 
-	P1 = 0x0f;
-	if (P1 != 0x0f)
+	KEY = 0x0f;
+	if (KEY != 0x0f)
 	{
 		delay(1000);
-		if (P1 != 0x0f)
+		if (KEY != 0x0f)
 		{
-			value = 3 - findZero(P1);
-			P1 = 0xf0;
-			value += (4 * findZero(P1 / 0x10));
-			while (P1 != 0xf0)
+			value = 3 - findZero(KEY);
+			KEY = 0xf0;
+			value += (4 * findZero(KEY / 0x10));
+			while (KEY != 0xf0)
 				delay(1000);
 			return 1;
 		}

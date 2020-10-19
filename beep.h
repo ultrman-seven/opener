@@ -6,7 +6,7 @@
 #define MI 30
 #define PRESS 15
 #define BEEP_TIME 1000
-sbit bep = P1 ^ 4;
+sbit bep = P2 ^ 0;
 
 void rightBeep(void);
 void wrongBeep(void);

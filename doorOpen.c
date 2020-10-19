@@ -1,12 +1,12 @@
 #include"SegDis.h"
 #include"motor.h"
 #include"beep.h"
-#define KEY P1
-sbit LED_GREEN = P2 ^ 0;
-sbit LED_RED = P2 ^ 1;
+#define KEY P3
+sbit LED_GREEN = P2 ^ 3;
+sbit LED_RED = P2 ^ 2;
 un8 value = 0;
 //char password[9] = { 7,3,5,5,6,0,8,-1,-2 };
-char password[9] = { 1,1,2,3, 5,8,1,1, -2 };
+char password[9] = { 1,1,2,3, 5,8,11,-1, -2 };
 
 void main()
 {
@@ -18,25 +18,30 @@ void main()
 	char* input = display;
 	INICIAL_SEG
 	INICIAL_MOTO
+		bep = 0;
+	LED_RED = 0;
 	while (1)
 	{
 		if (matButton())//输入为十四进制最多8位
 			switch (value)
 			{
-			case 14://退位
+			case 13://退位
 				input--;
 				*input = -1;
 				break;
-			case 15://清空
+			case 14://清空
 				for (input = display; *input != -2; input++)
 					*input = -1;
 				input = display;
 				break;
-			case 16://确认
+			case 15://确认
 				if (checkPassword(display))
 					rightPassword();
 				else
 					wrongPassword();
+				for (input = display; *input != -2; input++)
+					*input = -1;
+				input = display;
 				break;
 			default://0-13为输入数字
 				if (*input != -2)
@@ -81,7 +86,6 @@ void wrongPassword(void)
 		error();
 }
 
-
 bit matButton(void)
 {
 	void delay(un16);
@@ -93,14 +97,14 @@ bit matButton(void)
 		delay(1000);
 		if (KEY != 0x0f)
 		{
-			value = 3 - findZero(KEY);
+			value = findZero(KEY);
 			KEY = 0xf0;
 			value += (4 * findZero(KEY / 0x10));
 			while (KEY != 0xf0)
 			{
-				bep = 0;
-				delay(PRESS);
 				bep = 1;
+				delay(PRESS);
+				bep = 0;
 				delay(PRESS);
 			}
 			return 1;

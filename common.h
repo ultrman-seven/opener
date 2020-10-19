@@ -1,7 +1,6 @@
 #ifndef __COMMON_H__
 #define __COMMON_H__
 #include<reg52.h>
-
 typedef unsigned char un8;
 typedef unsigned int un16;
 void delay(un16);

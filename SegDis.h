@@ -8,9 +8,9 @@
 #define ERR_TWINKLE 20000
 #define INICIAL_SEG SEG = 0x00;
 
-sbit in_hc138_0 = P2 ^ 2;
-sbit in_hc138_1 = P2 ^ 3;
-sbit in_hc138_2 = P2 ^ 4;
+sbit in_hc138_0 = P2 ^ 7;
+sbit in_hc138_1 = P2 ^ 6;
+sbit in_hc138_2 = P2 ^ 5;
 
 void print(char* input);
 void error(void);

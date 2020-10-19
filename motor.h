@@ -6,10 +6,10 @@
 #define OPPOSITE 0
 #define CIRCLE 5
 
-sbit motoA = P1 ^ 0;
-sbit motoB = P1 ^ 1;
-sbit motoC = P1 ^ 2;
-sbit motoD = P1 ^ 3;
+sbit motoA = P1 ^ 4;
+sbit motoB = P1 ^ 5;
+sbit motoC = P1 ^ 6;
+sbit motoD = P1 ^ 7;
 
 #define INICIAL_MOTO motoA=motoB=motoC=motoD=0;
 void stepperMotor(un16 circle, bit direction);

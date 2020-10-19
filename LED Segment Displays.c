@@ -24,9 +24,9 @@ void print(char* input)
 	while (total--)
 	{
 		hc138(count - total);
-		SEG = dis_num[input[total]];
+		SEG = ~dis_num[input[total]];
 		delay(VISUAL_TIME);
-		SEG = 0x00;
+		SEG = 0xff;
 	}
 }
 
@@ -36,8 +36,8 @@ void error(void)
 	for ( count = 1; count < 7; count++)
 	{
 		hc138(count);
-		SEG = disError[7 - count];
+		SEG = ~disError[7 - count];
 		delay(VISUAL_TIME);
-		SEG = 0x00;
+		SEG = 0xff;
 	}
 }

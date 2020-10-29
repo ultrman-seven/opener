@@ -2,16 +2,19 @@
 #include"motor.h"
 #include"beep.h"
 #define KEY P3
-sbit LED_GREEN = P2 ^ 3;
-sbit LED_RED = P2 ^ 2;
+sbit LED_GREEN = P1 ^ 1;
+sbit LED_RED = P1 ^ 2;
 un8 value = 0;
 //char password[9] = { 7,3,5,5,6,0,8,-1,-2 };
-char password[9] = { 1,1,2,3, 5,8,11,-1, -2 };
+char code password[9] = { 1,1,2,3, 5,8,1,1, -2 };
+char code c4[9] = { 7,3,5,5, 6,0,8, -1, -2 };
+char code hwh[9] = { 2,0,0,1, 0,8,2,8 ,-2 };
+char code qdy[9] = { 3,4,8, 1,1,1,1, -1, -2};
 
 void main()
 {
 	bit matButton(void);
-	bit checkPassword(char*);
+	bit checkPassword(char*,char*);
 	void rightPassword(void);
 	void wrongPassword(void);
 	char display[9] = { -1,-1,-1,-1,    -1,-1,-1,-1 ,-2};
@@ -22,7 +25,7 @@ void main()
 	LED_RED = 0;
 	while (1)
 	{
-		if (matButton())//输入为十四进制最多8位
+		if (matButton())//输入为13进制最多8位
 			switch (value)
 			{
 			case 13://退位
@@ -35,7 +38,7 @@ void main()
 				input = display;
 				break;
 			case 15://确认
-				if (checkPassword(display))
+				if (checkPassword(display,password) || checkPassword(display,hwh) || checkPassword(display,qdy) || checkPassword(display,c4))
 					rightPassword();
 				else
 					wrongPassword();
@@ -55,16 +58,15 @@ void main()
 	}
 }
 
-bit checkPassword(char* input)
+bit checkPassword(char* input,char* pas)
 {
-	char* pas = password;
 	while (*input != -2 && *input++ == *pas++)
 		;
 	return (*input == -2) ? 1 : 0;
 }
 void rightPassword(void)
 {
-	un8 time = 200;
+	un8 time = 500;
 	LED_RED = 1;
 	LED_GREEN = 0;
 	rightBeep();

@@ -32,3 +32,9 @@ while the key is pressed, the function will return true and give the value which
 
 in 'main', firstly initialize the digit tube and the motor, especially the motor!!! especially the motor!!! especially the motor!!!
 <!--hhhhhhh>
+<--!
+hhhh
+-->
+<!--
+hhh
+>

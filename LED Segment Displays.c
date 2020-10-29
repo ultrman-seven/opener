@@ -41,3 +41,8 @@ void error(void)
 		SEG = 0xff;
 	}
 }
+void countDown(un8 time)
+{
+	SEG_BIT = time >= 10 ? 0x03 : 0x01;
+	SEG = dis_num[time % 10];
+}

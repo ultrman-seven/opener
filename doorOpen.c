@@ -2,14 +2,49 @@
 #include"motor.h"
 #include"beep.h"
 #define KEY P3
+#define OPENTIME 19
 sbit LED_GREEN = P1 ^ 1;
 sbit LED_RED = P1 ^ 2;
 un8 value = 0;
+un8 time = 0;
+un8 second = 0;
 //char password[9] = { 7,3,5,5,6,0,8,-1,-2 };
 char code password[9] = { 1,1,2,3, 5,8,1,1, -2 };
 char code c4[9] = { 7,3,5,5, 6,0,8, -1, -2 };
 char code hwh[9] = { 2,0,0,1, 0,8,2,8 ,-2 };
 char code qdy[9] = { 3,4,8, 1,1,1,1, -1, -2};
+
+void timerOpen(void)
+{
+	EA = 1;
+	ET0 = 1;
+	TMOD = 0x01;
+	//¶¨Ê±50ms
+	TL0 = 0xb0;
+	TH0 = 0x3c;
+
+	TF0 = 0;
+	TR0 = 1;
+}
+
+void timeInterrupt(void) //interrupt 1
+{
+	TL0 = 0xb0;
+	TH0 = 0x3c;
+
+	TF0 = 0;
+	if (time < 20)
+		time++;
+	else
+	{
+		time = 0;
+		if (second < OPENTIME)
+			second++;
+		else
+			second = TR0 = 0;
+	}
+	countDown(second);
+}
 
 void main()
 {
@@ -66,16 +101,18 @@ bit checkPassword(char* input,char* pas)
 }
 void rightPassword(void)
 {
-	un8 time = 500;
+	un16 timeWait = 500;
 	LED_RED = 1;
 	LED_GREEN = 0;
 	rightBeep();
+	timerOpen();
 	stepperMotor(CIRCLE, FORWARD);
-	while (time--)
+	while (timeWait--)
 		delay(1000);
 	stepperMotor(CIRCLE, OPPOSITE);
 	LED_RED = 0;
 	LED_GREEN = 1;
+	INICIAL_SEG
 }
 void wrongPassword(void)
 {

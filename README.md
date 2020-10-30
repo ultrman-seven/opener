@@ -1,8 +1,8 @@
 # opener
 C51
-|author|Leslie|
+|author|chip|
 |:-------|:--------:|
-|chip|STC-89C52RC|
+|Leslie|STC-89C52RC|
 
 using STC MCU to open the door.
 Input the right password and then the door opened due to the operation of the stepper motor is triggered. If the password is wrong， the digital tube would display "Error".
